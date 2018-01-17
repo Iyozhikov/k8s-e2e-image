@@ -1,11 +1,11 @@
-FROM golang:1.6.3
+FROM golang:1.8
 
 RUN mkdir /reports && \
     apt-get update && \
     apt-get install -y rsync && \
     mkdir -p /go/src/k8s.io && \
     go get -u github.com/jteeuwen/go-bindata/go-bindata && \
-    git clone -b v1.4.3 https://github.com/kubernetes/kubernetes.git /go/src/k8s.io/kubernetes
+    git clone -b v1.8.5 https://github.com/kubernetes/kubernetes.git /go/src/k8s.io/kubernetes
 
 WORKDIR /go/src/k8s.io/kubernetes
 
@@ -16,4 +16,3 @@ RUN make all WHAT=cmd/kubectl && \
 COPY entrypoint.sh /
 RUN chmod +x /entrypoint.sh
 CMD /entrypoint.sh
-

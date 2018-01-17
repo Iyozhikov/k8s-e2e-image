@@ -1,4 +1,4 @@
-# Kubernettes e2e image
+# Kubernetes e2e image
 
 **Run tests:**
 

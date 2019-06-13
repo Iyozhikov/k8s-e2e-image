@@ -1,11 +1,13 @@
-FROM golang:1.8
+FROM golang:1.12
 
 RUN mkdir /reports && \
     apt-get update && \
-    apt-get install -y rsync && \
+    apt-get upgrade -y && \
+    apt-get install -y rsync ca-certificates ca-cacert && \
     mkdir -p /go/src/k8s.io && \
-    go get -u github.com/jteeuwen/go-bindata/go-bindata && \
-    git clone -b v1.8.5 https://github.com/kubernetes/kubernetes.git /go/src/k8s.io/kubernetes
+    git clone https://github.com/kubernetes/kubernetes.git /go/src/k8s.io/kubernetes
+
+RUN cd /go/src/k8s.io/kubernetes && git checkout refs/tags/v1.10.13
 
 WORKDIR /go/src/k8s.io/kubernetes
 
